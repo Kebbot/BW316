@@ -1,0 +1,3 @@
+﻿  Prepod-BW316.cpp
+C:\Users\Admin\source\repos\Prepod-BW316\Prepod-BW316\Prepod-BW316.cpp(16,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Prepod-BW316.vcxproj -> C:\Users\Admin\source\repos\Prepod-BW316\x64\Debug\Prepod-BW316.exe
