@@ -127,11 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BodyFunction.cpp" />
     <ClCompile Include="Prepod-BW316.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="HeadFunction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

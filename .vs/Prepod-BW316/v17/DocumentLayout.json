@@ -1,18 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\",
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8E7B68AA-22D7-4821-BC74-A3F8B210DD8D}|Prepod-BW316\\Prepod-BW316.vcxproj|C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\HeadFunction.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8E7B68AA-22D7-4821-BC74-A3F8B210DD8D}|Prepod-BW316\\Prepod-BW316.vcxproj|solutionrelative:Prepod-BW316\\HeadFunction.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8E7B68AA-22D7-4821-BC74-A3F8B210DD8D}|Prepod-BW316\\Prepod-BW316.vcxproj|C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\Prepod-BW316.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{8E7B68AA-22D7-4821-BC74-A3F8B210DD8D}|Prepod-BW316\\Prepod-BW316.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\BW316\\Prepod-BW316\\Prepod-BW316.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8E7B68AA-22D7-4821-BC74-A3F8B210DD8D}|Prepod-BW316\\Prepod-BW316.vcxproj|solutionrelative:Prepod-BW316\\Prepod-BW316.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8E7B68AA-22D7-4821-BC74-A3F8B210DD8D}|Prepod-BW316\\Prepod-BW316.vcxproj|C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\BodyFunction.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8E7B68AA-22D7-4821-BC74-A3F8B210DD8D}|Prepod-BW316\\Prepod-BW316.vcxproj|solutionrelative:Prepod-BW316\\BodyFunction.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,39 +27,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "HeadFunction.h",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\HeadFunction.h",
-              "RelativeDocumentMoniker": "Prepod-BW316\\HeadFunction.h",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\HeadFunction.h",
-              "RelativeToolTip": "Prepod-BW316\\HeadFunction.h",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-03-14T16:15:01.923Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "BodyFunction.cpp",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\BodyFunction.cpp",
-              "RelativeDocumentMoniker": "Prepod-BW316\\BodyFunction.cpp",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\BodyFunction.cpp",
-              "RelativeToolTip": "Prepod-BW316\\BodyFunction.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC8AAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-14T16:14:18.499Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Prepod-BW316.cpp",
-              "DocumentMoniker": "C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\Prepod-BW316.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\Prepod-BW316\\Prepod-BW316.cpp",
               "RelativeDocumentMoniker": "Prepod-BW316\\Prepod-BW316.cpp",
-              "ToolTip": "C:\\Users\\Admin\\source\\repos\\Prepod-BW316\\Prepod-BW316\\Prepod-BW316.cpp",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\Prepod-BW316\\Prepod-BW316.cpp",
               "RelativeToolTip": "Prepod-BW316\\Prepod-BW316.cpp",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAcAAAAOAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAHcAAABIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-03-12T17:26:33.264Z"
+              "WhenOpened": "2024-03-12T17:26:33.264Z",
+              "EditorCaption": ""
             }
           ]
         }
