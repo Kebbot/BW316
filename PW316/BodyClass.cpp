@@ -1,10 +1,10 @@
 #include <iostream>
 #include "HeadClass.h"
 using namespace std;
-//Конструкторы
+//Конструкторы и деструктор
 Student::Student() 
 { 
-	cout << "Конструктор по умолчанию отработал" << endl; 
+	cout << "Конструктор по умолчанию отработал" << this << endl;
 	full_name = nullptr;
 	marks = nullptr;
 	markCount = 0;
@@ -35,6 +35,18 @@ Student::Student(const char* studentName,
 		marks[i] = studentMarks[i];
 	}
 }
+//Student::~Student()
+//{
+//	
+//	if(full_name != nullptr)
+//	delete[] full_name;
+//
+//	if (marks != nullptr)
+//	delete[] marks;
+//	cout << "Отработал деструктор" << this << endl;
+//	
+//	
+//}
 
 //Set'эры
 void Student::createName(const char* studentName)

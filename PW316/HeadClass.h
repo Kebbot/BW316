@@ -15,7 +15,7 @@ public:
 	const char* getName() { return full_name; }
 	int getMarks(int index) { return marks[index]; }
 
-	//Конструкторы
+	//Конструкторы и деструктор
 
 	Student(); // конструктор по умолчанию
 	Student(const char* studentName);
@@ -24,6 +24,7 @@ public:
 	Student(const char* studentName,
 		const int studentMarkCount,
 		const int* studentMarks);
+	/*~Student();*/ // деструктор
 	//Обычные методы
 	double getAver();
 };
