@@ -27,10 +27,105 @@ using namespace std;
 	список_операторов 
 }
 */
-struct Point
+//struct Point
+//{
+//	int x;
+//	int y;
+//};
+
+/*class Point
 {
-	int x;
-	int y;
+	int x{ 100 };
+	int y{ 100 };
+public:
+	Point() : x{ 0 }, y{ 0 } 
+	{ cout << "Default point constuctor class\n"; }
+	Point(int pX, int pY) : x{ pX }, y{ pY }
+	{ cout << "Point parametr constuctor class\n";}
+	int getX() { return x; }
+	int getY() { return y; }
+};
+
+class RectangleP
+{
+	Point leftUpperCorner;
+	int width;
+	int height;
+public:
+	RectangleP() : leftUpperCorner{10,10}, width{0}, height{0}
+	{ cout << "Default Rectangle constuctor class\n";}
+	RectangleP(int x, int y, int widthP, int heightP) : 
+		leftUpperCorner{ x,y }, width{ widthP }, height{ heightP }
+	{cout << "Rectangle parametr constuctor class\n";}
+
+};*/
+
+/*
+Point(int pX, int pY) : x{px}, y{pY} { Тело_конструктора}
+*/
+
+/*class BadOrder
+{
+	int fieldOne;
+	int fieldTwo;
+public:
+	BadOrder(int param) : fieldTwo{ param },
+		fieldOne{ fieldTwo +10 }{}
+	void Print()
+	{
+		cout << "fieldOne = " << fieldOne << endl
+			<< "fieldTwo = " << fieldTwo << endl;
+	}
+};
+
+class GoogOrder
+{
+	int fieldOne;
+	int fieldTwo;
+public:
+	GoogOrder(int param) : fieldOne{ param + 10}, 
+		fieldTwo{ param } {}
+	void Print()
+	{
+		cout << "fieldOne = " << fieldOne << endl
+			<< "fieldTwo = " << fieldTwo << endl;
+	}
+};*/
+
+class Human
+{
+	char* name;
+	int age;
+	int socialId;
+public:
+	Human(const char* nameP, int ageP, int socialIdP) :
+		name{ nameP ? new char[strlen(nameP) + 1] : nullptr },
+		age{ ageP }, socialId{ socialIdP }
+	{
+		if (name)
+			strcpy_s(name, strlen(nameP) + 1, nameP);
+		cout << "Human constructor" << endl;
+	}
+	Human() : Human{nullptr, 0,0}{}
+	Human(const char* nameP) : Human{ nameP, 0,0 } {}
+	Human(const char* nameP, int ageP) : Human{ nameP, ageP,0 } {}
+	~Human()
+	{
+		if (name != nullptr)
+			delete[] name;
+		cout << "Human destructor" << endl;
+	}
+	void Print()
+	{
+		if (name)
+			cout << "Name: " << name << endl
+			<< "Age: " << age << endl
+			<< "Social ID: " << socialId << endl;
+		else
+		{
+			cout << "[empty Human]" << endl;
+		}
+	}
 };
 
 int main()
@@ -38,7 +133,35 @@ int main()
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 	setlocale(LC_ALL, "Rus");
-	//унифицированная инициализация
+
+	Human no;
+	no.Print();
+
+	Human pers{ "Ivan Ivanov" };
+	pers.Print();
+
+	Human pers1{ "Ivan Ivanov", 25 };
+	pers1.Print();
+
+	Human pers2{ "Ivan Ivanov", 25, 123456789 };
+	pers2.Print();
+
+	/*cout << "BadOrder" << endl;
+	BadOrder t1{ 42 };
+	t1.Print();
+	cout << endl;
+
+	cout << "GoogOrder" << endl;
+	GoogOrder t2{ 42 };
+	t2.Print();*/
+
+	/*RectangleP rect; //конструктор по умолчанию
+	RectangleP rect1{ 42,33,10,5 };
+	Point point{ 55,72 };
+	cout << point.getX() << endl;
+	cout << point.getY() << endl;*/
+
+	/*//унифицированная инициализация
 	int size{ 33 }; //простая переменная
 	const float tmp{ 36.6 }; //константа
 	int mass[3]{ 5,5,5 }; //одномерный массив
@@ -50,7 +173,7 @@ int main()
 	int* dataP{ nullptr }; //указатель
 	char* str{ new char[14] {"hello, world!"} }; //указатель в стиле C
 	int& ref{ size }; //ссылка
-	Point point{ 11,-3 }; //экземпляр (объект) структуры
+	Point point{ 11,-3 }; //экземпляр (объект) структуры*/
 	/*int size = 5;
 	vector<Student> student
 	{
