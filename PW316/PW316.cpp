@@ -92,7 +92,7 @@ public:
 	}
 };*/
 
-class Human
+/*class Human
 {
 	char* name;
 	int age;
@@ -126,15 +126,155 @@ public:
 			cout << "[empty Human]" << endl;
 		}
 	}
+};*/
+
+/*class NumberStorage
+{
+	int* storage;
+	int elementsCount;
+	static int usedMemory;
+public:
+	NumberStorage(int elementsCountP) : storage{ new int[elementsCountP] },
+		elementsCount{ elementsCountP }
+	{
+		int used = elementsCount * sizeof(int);
+		usedMemory += used;
+		cout << "NumberStorage: additional " << used <<
+			" bytes. Total: " << usedMemory << endl;
+		for (int i = 0; i < elementsCount; i++)
+		{
+			storage[i] = rand() % 20;
+		}
+	}
+	~NumberStorage()
+	{
+		int freed = elementsCount * sizeof(int) ;
+		delete[] storage;
+		usedMemory -= freed;
+		cout << "NumberStorage: freed " << freed <<
+			" bytes. Total used: " << usedMemory << endl;
+	}
+	void Print()
+	{
+		for (int i = 0; i < elementsCount; i++)
+		{
+			cout << storage[i] << ' ';
+		}
+		cout << endl;
+	}
+	static int GetUsedMemory() { return usedMemory; }
 };
 
+int NumberStorage::usedMemory{ 0 };*/
+
+/*class Date
+{
+	int day;
+	int month;
+	int year;
+public:
+	Date(int dayP, int monthP, int yearP) : day{ dayP },
+		month{ monthP }, year{ yearP } {}
+	Date() : Date(1,1,1970) {}
+	
+	void Print()
+	{
+		cout << this->day << '.' << this->month << '.' << this->year << endl;
+	}
+	void setDay(int dayP) { day = dayP; }
+	void setMonth(int monthP) { month = monthP; }
+	void setYear(int yearP) { year = yearP; }
+
+	Date& setDay(int dayP) { day = dayP; return*this; }
+	Date& setMonth(int monthP) { month = monthP; return*this; }
+	Date& setYear(int yearP) { year = yearP;return*this; }
+
+};*/
+
+class DynArray
+{
+	int* arr;
+	int size;
+public:
+	DynArray(int sizeP) :
+		arr{new int[sizeP]{}},size{sizeP}
+	{
+		cout << "DynArray constructed for: " << size 
+		<<"elements, for : " << this << endl; 
+	}
+	DynArray() : DynArray{5}{}
+	DynArray(const DynArray& object) : 
+		arr{new int[object.size]}, size{ object.size}
+	{
+		for (int i = 0; i < object.size; i++)
+		{
+			arr[i] = object.arr[i];
+		}
+		cout << "DynArray copy constructed for: " << size
+			<< "elements, for : " << this << endl;
+	}
+	~DynArray()
+	{
+
+		delete[] arr;
+		cout << "DynArray destructed for: " << size
+			<< "elements, for : " << this << endl;
+	}
+	void Print()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			cout << arr[i] << ' ';
+		}
+		cout << endl;
+	}
+	void randP()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			arr[i] = rand() % 10;
+		}
+	}
+};
+/*Досмотреть коснтруктор копирования*/
 int main()
 {
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 	setlocale(LC_ALL, "Rus");
+	srand(time(NULL));
 
-	Human no;
+	DynArray are{ 10 };
+	are.randP();
+	are.Print();
+	
+
+	DynArray areq{ are };
+	are.~DynArray();
+	areq.Print();
+
+	/*Date date1;
+	date1.setDay(29);
+	date1.setMonth(2);
+	date1.setYear(2004);
+	date1.Print();
+
+	Date date2;
+	date2.setDay(29).setMonth(2).setYear(2004);
+	date2.Print();*/
+	
+	/*cout << "Total memory used: " <<
+		NumberStorage::GetUsedMemory() << endl;
+
+	const int poolSize{ 3 };
+	NumberStorage pool[poolSize]{ {rand() % 101},
+		{rand() % 101},
+		{rand() % 101} };
+	
+	cout << "Total memory used: " <<
+		NumberStorage::GetUsedMemory() << endl;*/
+
+	/*Human no;
 	no.Print();
 
 	Human pers{ "Ivan Ivanov" };
@@ -144,7 +284,7 @@ int main()
 	pers1.Print();
 
 	Human pers2{ "Ivan Ivanov", 25, 123456789 };
-	pers2.Print();
+	pers2.Print();*/
 
 	/*cout << "BadOrder" << endl;
 	BadOrder t1{ 42 };
@@ -215,7 +355,7 @@ int main()
 	Student udent;
 	cout << "Средний бал студента " << student.getName()
 		<< " : " << student.getAver() << endl;*/
-	
+	return 0;
 }
 
 /*
