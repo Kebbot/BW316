@@ -4,110 +4,70 @@
 #include "HeadClass.h"
 using namespace std;
 
-/*class Human
+/*class Array
 {
-	char* name;
+	int size;
+	int* array;
 public:
-	Human(){}
-	Human(const char* nameP)
-	{
-		if (nameP) {
-			name = new char[strlen(nameP) + 1];
-			for (int i = 0; i < strlen(nameP) + 1; i++)
-			{
-				name[i] = nameP[i];
-			}
-		}
-		else
-		{
-			name = nullptr;
-		}
-	}
-	Human(const Human& object)
-	{
-		for (int i = 0; i <= strlen(object.name); i++)
-		{
-			name[i] = object.name[i];
-		}
-	}
-	
-	Human& setName(char* nameP)
-	{
-		if (nameP != nullptr)
-		{
-			name = new char[strlen(nameP) + 1];
-			strcpy_s(name, strlen(nameP) + 1, nameP);
-		}
-		return *this;
-	}
-	char* getName()
-	{
-		return name;
-	}
+	explicit Array(int size = 10);
+	~Array();
+	int getSize() const;
+	int getValue(int index) const;
+	void setValue(int index, int value);
+	void display(int index) const;
 };
-
-class Flatt
+Array::Array(int size)
 {
-	int countHuman;
-	Human* human;
-public:
-	Flatt(int countHumanP, Human* humanP)
-	{
-		human = new Human[countHumanP];
-		countHuman = countHumanP;
-		for (int i = 0; i < countHumanP; i++)
-		{
-			human[i].setName(humanP[i].getName());
-		}
-	}
-	void Print()
-	{
-		cout << "Flatt is " << this << " human here: ";
-		for (int i = 0; i < countHuman; i++)
-		{
-			cout << human[i].getName() << endl;
-		}
-		cout << endl << endl;
-	}
-	char* getHumanName(int idx)
-	{
-		for (int i = 0; i < countHuman; i++)
-		{
-			if(idx == i)
-			return human[i].getName();
-		}
-		
-	}
-	/*~Flatt()
-	{
-		if (human != nullptr)
-			delete[] human;
-	}
-};
-
-class Home
+	Array::size = size;
+	array = new int[size];
+}
+Array::~Array()
 {
-	Flatt* flat;
+	delete[] array;
+}
+int Array::getSize() const
+{
+	return size;
+}
+int Array::getValue(int index) const
+{
+	return array[index];
+}
+void Array::setValue(int index, int value)
+{
+	array[index] = value;
+}
+void Array::display(int index) const
+{
+	cout << array[index] << " ";
+}
+void display(const Array& array)
+{
+	for (int i = 0; i < array.getSize(); i++)
+	{
+		array.display(i);
+	}
+	cout << endl;
+}*/
 
-};
-*/
-
-class Account
+class Point
 {
 private:
-	double sum;
-	const double rate;
+	double x;
+	double y;
 public:
-	Account(double Rate, double Sum) : rate{Rate}
-	{
-		this->sum = Sum;
-	}
-	double getRate() const { return rate; }
-	double getIncome() { return sum * rate / 100; }
-	double getIncome() const { return sum * rate / 100; }
-	double getSum()  { return sum; }
-	double getSum() const { return sum; }
-	double setSum()  { sum += getIncome();  return sum; } //Ошибка
+	void display() const;
+	void read();
+	//Сравнение двух точек
+	static bool isEqual(const Point& point1, const Point& point2); 
+	//Сложение двух точек
+	static Point add(const Point& point1, const Point& point2);
+	//Умножение вектора на число
+	static Point mult(const Point& point1, double value);
+	// Расстояине между двумя точками
+	static double distance(const Point& point1, const Point& point2);
+	//длинна вектора
+	static double length(const Point& point);
 };
 
 int main()
@@ -117,15 +77,49 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 	
-	Account account1(2, 2000);
-	const Account account2(8, 5000);
+	Point point1(1, 1);
+	Point point2;
+	Point point3(1, 1);
 
-	account1.getRate();
-	account2.getRate();
+	if (Point::isEqual(point1, point3))
+		cout << "point1 and point3 are equal" << endl;
 
-	account1.getSum();
-	account2.getSum();
-	
+	cout << "point1: ";
+	point1.display();
+
+	cout << "Введите значения точек в формате x,y (12,10): ";
+	point2.read();
+
+	cout << "point2: ";
+	point2.display();
+
+	cout << "point1 + point2 = ";
+	Point::add(point2, point1).display();
+
+	cout << "Расстояние точек ";
+	point1.display();
+	cout << " и ";
+	point2.display();
+	cout << " будет ";
+	cout << Point::distance(point1, point2) << endl;
+
+
+
+	/*cout << "Dynamic integer array" << endl;
+	int size = 4;
+	Array array(size);
+	for (int i = 0; i < size; i++)
+	{
+		array.setValue(i, size - i);
+	}
+	display(array);
+	cout << "!!!" << endl;
+	display(Array(3));
+
+	//Array array10 = 10; //ошибка - так нельзя
+	Array array10{ 10 };*/
+
+
 	return 0;
 }
-// Explicit
+// 3.2 логика использования стандартных символов 
