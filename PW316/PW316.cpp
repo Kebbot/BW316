@@ -4,71 +4,161 @@
 #include "HeadClass.h"
 using namespace std;
 
-/*class Array
+/*class Point
 {
-	int size;
-	int* array;
-public:
-	explicit Array(int size = 10);
-	~Array();
-	int getSize() const;
-	int getValue(int index) const;
-	void setValue(int index, int value);
-	void display(int index) const;
-};
-Array::Array(int size)
-{
-	Array::size = size;
-	array = new int[size];
-}
-Array::~Array()
-{
-	delete[] array;
-}
-int Array::getSize() const
-{
-	return size;
-}
-int Array::getValue(int index) const
-{
-	return array[index];
-}
-void Array::setValue(int index, int value)
-{
-	array[index] = value;
-}
-void Array::display(int index) const
-{
-	cout << array[index] << " ";
-}
-void display(const Array& array)
-{
-	for (int i = 0; i < array.getSize(); i++)
-	{
-		array.display(i);
-	}
-	cout << endl;
-}*/
-
-class Point
-{
-private:
 	double x;
 	double y;
 public:
-	void display() const;
-	void read();
-	//Сравнение двух точек
-	static bool isEqual(const Point& point1, const Point& point2); 
-	//Сложение двух точек
-	static Point add(const Point& point1, const Point& point2);
-	//Умножение вектора на число
-	static Point mult(const Point& point1, double value);
-	// Расстояине между двумя точками
-	static double distance(const Point& point1, const Point& point2);
-	//длинна вектора
-	static double length(const Point& point);
+	Point(double x, double y) : x{x}, y{x}{}
+	void display() const
+	{
+		cout << "(" << x << "," << y << ")" <<endl;
+	}
+	
+	Point operator+(const Point& point1)
+	{
+		return Point(x + point1.x, y + point1.y);
+	}
+	friend Point operator-(const Point& point1)
+	{
+		return Point(-point1.x, -point1.y);
+	}
+	friend ostream& operator<<(ostream& output, const Point& point1)
+	{
+		output << "(" << point1.x << "," << point1.y << ")";
+		return output;
+	}
+	friend istream& operator>>(istream& input, Point& point1)
+	{
+		input >> point1.x;
+		input >> point1.y;
+		return input;
+	}
+	double getX()const { return x; }
+	double getY()const { return y; }
 };
+
+Point operator+(const Point& point1, const Point& point2)
+{
+	return Point(point2.getX() + point1.getX(), point2.getY() + point1.getY());
+}*/
+
+class DynArray
+{
+	int* arr;
+	int size;
+public:
+	DynArray(int sizeP)
+		: arr{ new int[sizeP] {} }, size{ sizeP }
+	{
+		std::cout << "DynArr constructed for " << size
+			<< " elements, for " << this << '\n';
+	}
+	DynArray() : DynArray(5) {}
+	DynArray(const DynArray& object)
+		: arr{ new int[object.size] }, size{ object.size }
+	{
+		/* В списке инициализаторов полей класса выше
+		выделяем новый блок динамической памяти того же
+		размера, что и в копируемом экземпляре класса
+		DynArray. Следующим циклом копируем элементы
+		из оригинального блока памяти во вновь
+		выделенный. */
+		for (int i{ 0 }; i < size; ++i)
+		{
+			arr[i] = object.arr[i];
+		};
+		std::cout << "DynArr copy constructed for "
+			<< size << " elements, for " << this
+			<< '\n';
+	}
+	DynArray( DynArray&& object) : 
+		arr{ object.arr}, size{ object.size}
+	{
+		object.arr = nullptr;
+		object.size = 0;
+		cout << "DynArr move constructed for "
+			<< size << " elements, for " << this
+			<< '\n'; 
+	}
+	DynArray& operator=(const DynArray& object)
+	{
+		// проверка на самоприсваивание
+		if (!(this == &object))
+		{
+			/* проверяем на невозможность "переиспользовать"
+			блок памяти, выделенный под имеющийся
+			массив */
+			if (size != object.size)
+			{
+				/* в случае невозможности "переиспользования"
+				необходимо освободить память, УЖЕ
+				занимаемую элементами текущего
+				динамического массива */
+				delete[] arr;
+				/* выделяем новый блок памяти согласно
+				размеру копируемого массива */
+				arr = new int[object.size];
+			}
+			size = object.size;
+			/* Следующим циклом копируем элементы
+			из оригинального блока памяти во вновь
+			выделенный */
+			for (int i = 0; i < size; i++)
+			{
+				arr[i] = object.arr[i];
+			};
+			/*int* dest{arr};//указатель на НАчало массива
+			int* src{ object.arr }; //указатель на начало object массива 
+			int* const end{ arr + size }; //указатель на конец массива
+			//выполнять пока "Начало" меньше чем "конец"
+			while (dest < end)
+			{
+				*dest++ = *src++;
+				//Копируем значения из object массива в наш массив
+			}*/
+
+		}
+		std::cout << "DynArr copy assigned for "
+			<< size << " elements, for " << this
+			<< '\n';
+		return *this;
+	}
+	int getElem(int idx)const { return arr[idx]; }
+	void setElem(int idx, int val) { arr[idx] = val; }
+	void print()const;
+	void randomize();
+	~DynArray()
+	{
+		std::cout << "Try to free memory from DynArray for"
+			<< arr << " pointer\n";
+		delete[] arr;
+		std::cout << "DynArr destructed for " << size
+			<< " elements, for " << this << '\n';
+	}
+};
+void DynArray::print()const
+{
+	for (int i{ 0 }; i < size; ++i)
+	{
+		std::cout << arr[i] << ' ';
+	}
+	std::cout << '\n';
+}
+void DynArray::randomize()
+{
+	for (int i{ 0 }; i < size; ++i)
+	{
+		arr[i] = rand() % 10;
+	}
+}
+
+DynArray arrFactory(int arrSize)
+{
+	DynArray arr{ arrSize };
+	arr.randomize();
+	return arr;
+}
 
 int main()
 {
@@ -77,49 +167,13 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 	
-	Point point1(1, 1);
-	Point point2;
-	Point point3(1, 1);
-
-	if (Point::isEqual(point1, point3))
-		cout << "point1 and point3 are equal" << endl;
-
-	cout << "point1: ";
-	point1.display();
-
-	cout << "Введите значения точек в формате x,y (12,10): ";
-	point2.read();
-
-	cout << "point2: ";
-	point2.display();
-
-	cout << "point1 + point2 = ";
-	Point::add(point2, point1).display();
-
-	cout << "Расстояние точек ";
-	point1.display();
-	cout << " и ";
-	point2.display();
-	cout << " будет ";
-	cout << Point::distance(point1, point2) << endl;
-
-
-
-	/*cout << "Dynamic integer array" << endl;
-	int size = 4;
-	Array array(size);
-	for (int i = 0; i < size; i++)
-	{
-		array.setValue(i, size - i);
-	}
-	display(array);
-	cout << "!!!" << endl;
-	display(Array(3));
-
-	//Array array10 = 10; //ошибка - так нельзя
-	Array array10{ 10 };*/
-
+	
+	DynArray ar1;
+	ar1 = arrFactory(10);
+	std::cout << "ar1 elements: ";
+	ar1.print();
+	
+	
 
 	return 0;
 }
-// 3.2 логика использования стандартных символов 
