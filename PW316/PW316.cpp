@@ -135,7 +135,7 @@ public:
 int Max(int a, int b) { return a > b ? a : b; }
 template <typename T1, typename T2> int Max(T1 a, T2 b) = delete;*/
 
-class MedalRow
+/*class MedalRow
 {
 	char country[4];
 	int medals[3];
@@ -224,6 +224,168 @@ public:
 			medalRows[i].Print();
 		}
 	}
+};*/
+
+
+class Dyn2DArr
+{
+	int sizeY;
+	int sizeX;
+public:
+	int** data;
+	Dyn2DArr(int sizeYP, int sizeXP)
+		: sizeY{ sizeYP }, sizeX{ sizeXP },
+		data{ new int* [sizeYP] }
+	{
+		int* dataElements{ new int[sizeY * sizeX] };
+		for (int y = 0; y < sizeY; y++)
+		{
+			data[y] = dataElements + y * sizeX;
+		}
+	}
+	void Print()
+	{
+		for (int i = 0; i < sizeY; i++)
+		{
+			for (int j = 0; j < sizeX; j++)
+			{
+				cout << data[i][j] << ' ';
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	~Dyn2DArr()
+	{
+		delete[] data[0];
+		delete[] data;
+	}
+};
+
+class Matrix
+{
+	int sizeY;
+	int sizeX;
+	int* data;
+	int index2D(int y, int x) const {
+		return y * sizeX + x;
+	}
+	int index2D(int y, int x, int sizeXP) const {
+		return y * sizeXP + x;
+	}
+public:
+	Matrix(int sizeYP, int sizeXP)
+		: sizeY{ sizeYP }, sizeX{ sizeXP },
+		data{ new int[sizeYP * sizeXP] } {}
+	int operator()(int y, int x) const {
+		return *(data + index2D(y, x));
+	}
+	int& operator()(int y, int x)
+	{
+		return *(data + index2D(y, x));
+	}
+	void deleteColumn(int columnPos)
+	{
+		--sizeX;
+		int* newData{ new int[sizeY * sizeX] };
+		for (int y{ 0 }; y < sizeY; ++y)
+		{
+			for (int x{ 0 }; x < sizeX; ++x)
+			{
+				*(newData + index2D(y, x)) =
+					*(data + index2D(y, x + (x >=
+						columnPos)));
+			}
+		}
+		delete[] data;
+		data = newData;
+	}
+	void addColumn(int columnPos, int* newCol = nullptr)
+	{
+		int* newData{ new int[sizeY * (sizeX + 1)] };
+		for (int y{ 0 }; y < sizeY; ++y)
+		{
+			for (int x{ 0 }; x < sizeX; ++x)
+			{
+				*(newData + index2D(y, x + (x >= columnPos),
+					sizeX + 1)) = *(data + index2D(y, x));
+			}
+			*(newData + index2D(y, columnPos, sizeX + 1)) =
+				newCol ? *(newCol + y) : 0;
+		}
+		delete[] data;
+		data = newData;
+		++sizeX;
+	}
+	void deleteRow(int rowPos)
+	{
+		--sizeY;
+		int* newData{ new int[sizeY * sizeX] };
+		for (int y{ 0 }; y < sizeY; ++y)
+		{
+			for (int x{ 0 }; x < sizeX; ++x)
+			{
+				*(newData + index2D(y, x)) =
+					*(data + index2D(y + (y >= rowPos),
+						x));
+			}
+		}
+		delete[] data;
+		data = newData;
+	}
+	void addRow(int rowPos, int* newRow = nullptr)
+	{
+		int* newData{ new int[(sizeY + 1) * sizeX] };
+		for (int y{ 0 }; y < sizeY; ++y)
+		{
+			for (int x{ 0 }; x < sizeX; ++x)
+			{
+				*(newData + index2D(y + (y >= rowPos), x)) =
+					*(data + index2D(y, x));
+			}
+		}
+		for (int x{ 0 }; x < sizeX; ++x)
+		{
+			*(newData + index2D(rowPos, x)) =
+				newRow ? *(newRow + x) : 0;
+		}
+		delete[] data;
+		data = newData;
+		++sizeY;
+	}
+	void print()const
+	{
+		for (int y{ 0 }; y < sizeY; ++y)
+		{
+			for (int x{ 0 }; x < sizeX; ++x)
+			{
+				std::cout << (*this)(y, x) << '\t';
+			}
+			std::cout << '\n';
+		}
+		std::cout << '\n';
+	}
+	~Matrix() { delete[] data; }
+};
+
+class Counter
+{
+	int cnt;
+public:
+	Counter(int start) : cnt{ start } {}
+	Counter() : Counter(0) {}
+	int operator()() { return cnt++; }
+	void resrtTo(int start) { cnt = start; }
+};
+
+class PointArr
+{
+	const int size{ 6 };
+	int* arr1; //{ 6, 8, 6, 7, 3}
+	int* arr2; //{ 2, 5, 8, 7, 3}
+	int* arr3; //сюда уникальные элементы {6,2,5}
+	//которых нет в другом массиве (без повторов)
+	
 };
 
 int main()
@@ -233,20 +395,69 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 	
-	MedalsTable mt;
-	cout << "Medal table #1\n";
-	mt["RUS"][MedalRow::GOLD] = 15;
-	mt["RUS"][MedalRow::SILVER] = 12;
-	mt["KAZ"][MedalRow::GOLD] = 7;
-	mt["KAZ"][MedalRow::BRONZE] = 15;
-	mt["BEL"][MedalRow::SILVER] = 15;
-	mt["BEL"][MedalRow::BRONZE] = 3;
-	mt["BEL"][MedalRow::GOLD] = 5;
-	mt.Print();
+	const int maxCnt{ 5 };
+	Counter cnt1{};
+	Counter cnt2{100};
+	for (int i = 0; i < maxCnt; i++)
+	{
+		cout <<"cnt1: " << cnt1() << endl;
+		cout << "cnt2: " << cnt2() << endl;
+	}
+	cout << endl;
+	cnt1.resrtTo(10);
+	cnt2.resrtTo(200);
+	for (int i = 0; i < maxCnt; i++)
+	{
+		cout << "cnt1: " << cnt1() << endl;
+		cout << "cnt2: " << cnt2() << endl;
+	}
+	cout << endl;
 
-	cout << "Medal table #2\n";
-	const MedalsTable mt1{ mt };
-	mt1.Print();
+	/*Для ввожа в ручную поставьте значение USER_INPUT в 1*/
+/*#define USER_INPUT 0;
+	int rows{ 3 };
+	int columns{ 3 };
+	int counter{ 1 };
+#if USER_INPUT == 1
+	std::cout << "Enter matrix rows count\n";
+	std::cin >> rows;
+	std::cout << "Enter matrix columns count\n";
+	std::cin >> rows;
+#endif
+	Matrix matrix{ rows, columns };
+	for (int y{ 0 }; y < rows; ++y)
+	{
+		for (int x{ 0 }; x < columns; ++x)
+		{
+			matrix(y, x) = counter++;
+		}
+	}
+	matrix.print();
+	matrix.deleteColumn(2);
+	matrix.print();
+	int* newColumn{ new int[columns] {11,22,33} };
+	matrix.addColumn(0, newColumn);
+	matrix.print();
+	matrix.deleteRow(2);
+	matrix.print();
+	int* newRow{ new int[rows] {111,222,333} };
+	matrix.addRow(2, newRow);
+	matrix.print();
+	delete[] newRow;
+	delete[] newColumn;*/
+
+	/*int rows{ 3 };
+	int colums{ 3 };
+	int count{ 1 };
+	Dyn2DArr arr2d{ rows,colums };
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < colums; j++)
+		{
+			arr2d.data[i][j] = count++;
+		}
+	}
+	arr2d.Print();*/
 	
 	return 0;
 }
