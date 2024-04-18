@@ -82,3 +82,10 @@ double Student::getAver()
 	}
 	return sum / markCount;
 }
+
+void stopProgram(string message)
+{
+	cout << message << endl;
+	cout << "Press any key to exit Program" << endl;
+	exit(1);
+}
