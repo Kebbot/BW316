@@ -7,62 +7,162 @@
 #include "HeadClass.h"
 using namespace std;
 
-template <class T>
-void MySort(T Array[], size_t size)
+/*template<class T>
+struct Point
 {
-	for (int i = size - 1; i > 0; i--)
+	T x;
+	T y;
+	void display()
 	{
-		for (int j = 0; j < i; j++)
-		{
-			if (Array[j] > Array[j + 1])
-				swap(Array[j], Array[j + 1]);
-		}
+		cout << "(" << x << "," << y << ")";
 	}
-}
-template <class T>
-void display(T Array[], size_t size)
+};
+template<class T>
+struct ArrayP
 {
-	for (int i = 0; i < size; i++)
+	vector<T> data;
+	void Add(T item)
 	{
-		cout << Array[i] << " ";
+		data.push_back(item);
 	}
-	cout << endl;
-}
-template <class T>
-void getValue(string promt, T& value)
+	void display()
+	{
+		for (auto var : data)
+			cout << var << " ";
+	}
+};
+template<template<class> class T, class T1>
+struct Some
 {
-	cout << promt;
+	T<T1> data; // создается переменная data,
+	// типом которой будет шаблон класса T,
+	// принимающий параметр-тип T1
+	void Add(T1 item)
+	{
+		data.Add(item);
+	}
+	void display()
+	{
+		data.display();
+		cout << endl;
+	}
+};*/
+
+/*template<class T>
+T Max(T t1, T t2)
+{
+	return(t1 > t2 ? t1 : t2);
+}
+//Специализация шаблона 
+/*template<>
+const char* Max<const char*>(const char* t1, const char* t2)
+{
+	return (strcmp(t1, t2) > 0 ? t1 : t2);
+}*/
+
+/*template<class T>
+void getValue(string promp, T& value)
+{
+	cout << promp;
 	cin >> value;
 	while (cin.fail())
 	{
 		cin.clear();
 		cin.ignore(32767, '\n');
-		cout << "Error... Try again" << endl;
-		cout << promt;
+		cout << "Error... try again" << endl;
+		cout << promp;
 		cin >> value;
 	}
 	string endLine;
 	getline(cin, endLine);
 }
 
-template <class T,int size> //size - параметр non-type в шаблоне класса
-class StatArray
+template<>
+inline void getValue<string>(string promp, string& value)
 {
-private:
-	//Параметр non-type size определяет размер статического массива
-	T m_array[size];
+	cout << promp;
+	getline(cin, value);
+}*/
+//Полная специализация шаблонов класса 
+// template <> className<dataTypeList> {classDefinition}
+
+template<class T>
+class List
+{
+	vector<T> list;
 public:
-	T* getArray();
-	T& operator[](int index)
+	void add(T item)
 	{
-		return m_array[index];
+		list.push_back(item);
+	}
+	void remove(int index)
+	{
+		list.erase(list.begin() + index);
+	}
+	auto getMin()
+	{
+		auto pMin = list.begin();
+		for (auto it = list.begin(); it < list.end(); it++)
+		{
+			if (*it < *pMin)
+			{
+				*pMin = *it;
+			}
+		}
+		return *pMin;
+	}
+	auto getMax()
+	{
+		auto pMax = list.begin();
+		for (auto it = list.begin(); it < list.end(); it++)
+		{
+			if (*it > *pMax)
+			{
+				*pMax = *it;
+			}
+		}
+		return *pMax;
 	}
 };
-template <class T, int size>
-T* StatArray<T, size>::getArray()
+
+template<>
+class List<const char*>
 {
-	return m_array;
-}
+	vector<const char*> list;
+public:
+	void add(const char* item)
+	{
+		list.push_back(item);
+	}
+	void remove(int index)
+	{
+		list.erase(list.begin() + index);
+	}
+	auto getMin()
+	{
+		auto pMin = list.begin();
+		for (auto it = list.begin(); it < list.end(); it++)
+		{
+			if (strcmp(*it, *pMin)<0)
+			{
+				pMin = it;
+			}
+		}
+		return *pMin;
+	}
+	auto getMax()
+	{
+		auto pMax = list.begin();
+		for (auto it = list.begin(); it < list.end(); it++)
+		{
+			if (strcmp(*it, *pMax) > 0)
+			{
+				pMax = it;
+			}
+		}
+		return *pMax;
+	}
+};
 
 int main()
 {
@@ -71,80 +171,53 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 	
-
-	const int size = 10;
-	StatArray<int, size> intArray;
-	for (int i = 0; i < size; i++)
-		intArray[i] = i;
-	for (int i = size - 1; i >= 0; i--)
-	{
-		cout << intArray[i] << ' ';
-	}cout << endl;
-
-	StatArray<double, size> douArray;
-	for (int i = 0; i < size; i++)
-		douArray[i] = 5.5 + 0.1 * i;
-	for (int i = size - 1; i >= 0; i--)
-	{
-		cout << douArray[i] << ' ';
-	}cout << endl;
-
-	/*cout << "Class Array" << endl << endl;
-	Array<int> intArray;
-	cout << "int Array initialization:" << endl;
-	intArray.display();
-	int size = intArray.getSize();
-	for (int i = size; i > 0; i--)
-	{
-		intArray.setItem(size - i, i);
-	}
-	cout << endl << "int Array after assignment:" << endl;
-	intArray.display();
-	intArray.sort();
-	cout << endl << "int Array after ordering:" << endl;
-	intArray.display();
+	List<int> intList;
+	intList.add(4);
+	intList.add(3);
+	intList.add(5);
+	intList.add(2);
+	cout << "intList min: " << intList.getMin() << endl;
+	cout << "intList max: " << intList.getMax() << endl;
 	cout << endl;
 
-	Array<string> strArray;
-	cout << "str Array initialization:" << endl;
-	strArray.display();
-	strArray.setItem(9, "two");
-	strArray.setItem(1, "seven");
-	strArray.setItem(2, "zero");
-	strArray.setItem(3, "four");
-	strArray.setItem(4, "one");
-	cout << endl << "str Array after assignment:" << endl;
-	strArray.display();
-	strArray.sort();
-	cout << endl << "str Array after ordering:" << endl;
-	strArray.display();
+	List<string> strList;
+	strList.add("four");
+	strList.add("five");
+	strList.add("two");
+	strList.add("three");
+	cout << "strList min: " << strList.getMin() << endl;
+	cout << "strList max: " << strList.getMax() << endl;
 	cout << endl;
 
-	cout << "Press any key to exit Program" << endl;*/
+	List<const char*> txtList;
+	txtList.add("four");
+	txtList.add("two");
+	txtList.add("five");
+	txtList.add("three");
+	cout << "txtList min: " << txtList.getMin() << endl;
+	cout << "txtList max: " << txtList.getMax() << endl;
+	cout << endl;
 
-	/*cout << "MySort Template" << endl << endl;
-	int intArray[]{ 1,3,5,-4,-2,4 };
-	int size = sizeof(intArray) / sizeof(int);
-	cout << "Original int Array : ";
-	display<int>(intArray, size);
-	MySort<int>(intArray, size);
-	cout << "Sorted int Array : ";
-	display<int>(intArray, size);
 
-	char chrArray[]{ 'g','t','f','f','s','s','e','p','n' };
-	size = sizeof(chrArray) / sizeof(char);
-	cout << "Original char Array : ";
-	display<char>(chrArray, size);
-	MySort<char>(chrArray, size);
-	cout << "Sorted char Array : ";
-	display<char>(chrArray, size);
 
-	string strArray[]{ "one","two","three","four","five" };
-	size = sizeof(strArray) / sizeof(string);
-	cout << "Original char Array : ";
-	display<string>(strArray, size);
-	MySort<string>(strArray, size);
-	cout << "Sorted char Array : ";
-	display<string>(strArray, size);*/
+	/*// структура Point с целыми x,y
+	Some<Point, int> intPoint;
+	intPoint.data.x = 1;
+	intPoint.data.y = 2;
+	cout << "Some: struct Point with int x, y : ";
+	intPoint.display();
+	// структура Point с плавающими x,y
+	Some<Point, double> doublePoint;
+	doublePoint.data.x = 10.01;
+	doublePoint.data.y = 0.02;
+	cout << "Some: struct Point with double x,y : ";
+	doublePoint.display();
+	// массив (вектор) целых
+	Some<ArrayP, int> intArray;
+	intArray.Add(1);
+	intArray.Add(3);
+	intArray.Add(5);
+	cout << "Some: array (vector) with int items: ";
+	intArray.display();*/
 	return 0;
 }

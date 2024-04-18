@@ -34,7 +34,8 @@ public:
 };
 void stopProgram(string message);
 
-template <class T>
+template<class T> //<class T = int, int size = 10>
+//Array<int,10> intArray 
 class Array
 {
 	static const size_t size{ 5 };
