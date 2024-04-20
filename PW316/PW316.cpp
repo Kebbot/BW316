@@ -4,87 +4,11 @@
 #include <string>
 #include <cassert>
 #include <conio.h>
+#include <initializer_list>
 #include "HeadClass.h"
 using namespace std;
 
-/*template<class T>
-struct Point
-{
-	T x;
-	T y;
-	void display()
-	{
-		cout << "(" << x << "," << y << ")";
-	}
-};
-template<class T>
-struct ArrayP
-{
-	vector<T> data;
-	void Add(T item)
-	{
-		data.push_back(item);
-	}
-	void display()
-	{
-		for (auto var : data)
-			cout << var << " ";
-	}
-};
-template<template<class> class T, class T1>
-struct Some
-{
-	T<T1> data; // создается переменная data,
-	// типом которой будет шаблон класса T,
-	// принимающий параметр-тип T1
-	void Add(T1 item)
-	{
-		data.Add(item);
-	}
-	void display()
-	{
-		data.display();
-		cout << endl;
-	}
-};*/
 
-/*template<class T>
-T Max(T t1, T t2)
-{
-	return(t1 > t2 ? t1 : t2);
-}
-//Специализация шаблона 
-/*template<>
-const char* Max<const char*>(const char* t1, const char* t2)
-{
-	return (strcmp(t1, t2) > 0 ? t1 : t2);
-}*/
-
-/*template<class T>
-void getValue(string promp, T& value)
-{
-	cout << promp;
-	cin >> value;
-	while (cin.fail())
-	{
-		cin.clear();
-		cin.ignore(32767, '\n');
-		cout << "Error... try again" << endl;
-		cout << promp;
-		cin >> value;
-	}
-	string endLine;
-	getline(cin, endLine);
-}
-
-template<>
-inline void getValue<string>(string promp, string& value)
-{
-	cout << promp;
-	getline(cin, value);
-}*/
-//Полная специализация шаблонов класса 
-// template <> className<dataTypeList> {classDefinition}
 
 template<class T>
 class List
@@ -164,6 +88,78 @@ public:
 	}
 };
 
+
+//шаблоны с неопределенным количеством параметров
+/*double getSum(double x) {
+	return x;
+}
+template <class...Args>
+double getSum(double x, Args ... args) {
+	return x + getSum(args...);
+}
+
+void print() // ничего не делает
+{}
+template <class First, class... Other>
+void print(const First& first,const Other&... other)
+{
+	cout << first;
+	print(other...);
+}
+template <class... Args>
+void println(const Args&... args)
+{
+	print(args...);
+	cout << endl;
+}
+struct Point
+{
+	int x;
+	int y;
+	friend std::ostream& operator<<(std::ostream& output, const Point& p)
+	{
+		output << "(" << p.x << "," << p.y << ")";
+		return output;
+	}
+};*/
+
+template<class T>
+class DynArray
+{
+	int length;
+	T* data;
+public:
+	DynArray():length(0),data(nullptr){}
+	DynArray(int length) : length(length)
+	{ data = new T[length]; }
+	DynArray(const std::initializer_list<T>& list) : DynArray(list.size())
+	{
+		int i = 0;
+		for (auto& element : list)
+		{
+			data[i] = element;
+			i++;
+		}
+	}
+	~DynArray()
+	{
+		delete[] data;
+	}
+	T& operator[](int index) { return data[index]; }
+	int getLength() const { return length; }
+};
+
+struct Point
+{
+	int x;
+	int y;
+	friend std::ostream& operator<<(std::ostream& output, const Point& p)
+	{
+		output << "(" << p.x << "," << p.y << ")";
+		return output;
+	}
+};
+
 int main()
 {
 	SetConsoleOutputCP(1251);
@@ -171,7 +167,42 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 	
-	List<int> intList;
+	
+	DynArray<int> intarray{ 1,2,3,4,5,6,7,8,9,12,3,13,135,53,1,54,53 };
+	for (int i = 0; i < intarray.getLength(); i++)
+	{
+		cout << intarray[i] << ' ';
+	}
+	cout << endl;
+	
+	DynArray<Point> pointArray{ Point{1,1}, Point{2,2}, Point{7,7} };
+
+	for (int i = 0; i < pointArray.getLength(); i++)
+	{
+		cout << pointArray[i] << ' ';
+	}
+	cout << endl;
+
+	DynArray<string> strArray{ "one","two","three","chetire"};
+
+	for (int i = 0; i < strArray.getLength(); i++)
+	{
+		cout << strArray[i] << ' ';
+	}
+	cout << endl;
+	/*println("Hello, world");
+	println("Hello, world",' ', 
+		"Hello, Point", ' ', 
+		"Hello, C++", ' ',
+		"Hello, OOP for C++");
+	println("Pi = ", 3.14, '\n', 2, " * ", 2, " = ", 2 * 2);
+	Point point{ 12,2 };
+	println("Point: ", point);*/
+
+	/*double sum = getSum(1, 2, 3, 4, 5);
+	cout << "sum: " << sum;*/
+
+	/*List<int> intList;
 	intList.add(4);
 	intList.add(3);
 	intList.add(5);
@@ -196,28 +227,7 @@ int main()
 	txtList.add("three");
 	cout << "txtList min: " << txtList.getMin() << endl;
 	cout << "txtList max: " << txtList.getMax() << endl;
-	cout << endl;
+	cout << endl;*/
 
-
-
-	/*// структура Point с целыми x,y
-	Some<Point, int> intPoint;
-	intPoint.data.x = 1;
-	intPoint.data.y = 2;
-	cout << "Some: struct Point with int x, y : ";
-	intPoint.display();
-	// структура Point с плавающими x,y
-	Some<Point, double> doublePoint;
-	doublePoint.data.x = 10.01;
-	doublePoint.data.y = 0.02;
-	cout << "Some: struct Point with double x,y : ";
-	doublePoint.display();
-	// массив (вектор) целых
-	Some<ArrayP, int> intArray;
-	intArray.Add(1);
-	intArray.Add(3);
-	intArray.Add(5);
-	cout << "Some: array (vector) with int items: ";
-	intArray.display();*/
 	return 0;
 }
