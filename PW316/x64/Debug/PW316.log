@@ -1,17 +1,3 @@
 ﻿  PW316.cpp
 C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(168,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(135,69): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-  C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(135,69):
-  контекст создания экземпляра шаблона (сначала самый старый)
-  	C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(185,19):
-  	выполняется компиляция ссылки на экземпляр класс шаблон функции "DynArray<std::string>"
-  	C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(135,2):
-  	во время компиляции функции-члена класс шаблон "DynArray<std::string>::DynArray(const std::initializer_list<T> &)"
-          with
-          [
-              T=std::string
-          ]
-  		C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(185,27):
-  		см. первую ссылку на "DynArray<std::string>::DynArray" в "main"
-  
   PW316.vcxproj -> C:\Users\Admin\Documents\GitHub\BW316\x64\Debug\PW316.exe

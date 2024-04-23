@@ -167,8 +167,42 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 	
+	// С-стайл строки
+	/*char ch{'a'};
+	char8_t ch8{ u8'a' }; 
+	char16_t ch16{ u'a' };
+	char32_t ch32{ U'a' };
+	wchar_t chw{ L'a' }; //нестандартный тип*/
+	/* минусы
+	* 1. Их невозможно сравнивать посредством операторов сравнения (==,<,>)
+	* 2. Нельзя присваивать значения одного массива другому
+	* 3. Не все функции интуитивно понятны
+	*/
+	/* плюсы
+	* 1. Эффективны по скорости.
+	* 2. У них есть большая библиотека функций
+	*/
+
+	//string text{"Hello"}; //Инициализация как const char*
+	//string text1(8,'a'); //Строка из 8 символов 'a'
 	
-	DynArray<int> intarray{ 1,2,3,4,5,6,7,8,9,12,3,13,135,53,1,54,53 };
+	//char arr[]{ 'a', 'b', 'c','\0','a','b', 'c' };
+	string mass;
+	
+	getline(cin, mass);
+	
+	cout << "| " << mass << " |" << endl;
+	cout << "| " << mass.find("Арман") << " |" << endl;
+	
+	
+	//typedef basic_string<char> string;
+	/*
+	* 1. Легко редактировать
+	* 2. Защищен от ошибок выхода за пределы массива
+	* 3. У них есть большая библиотека функций
+	*/
+
+	/*DynArray<int> intarray{1,2,3,4,5,6,7,8,9,12,3,13,135,53,1,54,53};
 	for (int i = 0; i < intarray.getLength(); i++)
 	{
 		cout << intarray[i] << ' ';
@@ -189,7 +223,7 @@ int main()
 	{
 		cout << strArray[i] << ' ';
 	}
-	cout << endl;
+	cout << endl;*/
 	/*println("Hello, world");
 	println("Hello, world",' ', 
 		"Hello, Point", ' ', 
