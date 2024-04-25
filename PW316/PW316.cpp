@@ -39,6 +39,80 @@ public:
 	int getCount();
 };
 
+class Queue
+{
+	//Очередь
+	int* Wait;
+	int MaxQueueLength; //максимальный размер
+	int QueueLength; //текущий размер очереди
+public:
+	Queue(int m);
+	~Queue();
+	void Add(int c);
+	void Clear();
+	int Exract();
+	bool isEmpty();
+	bool isFull();
+	int getCount();
+	void Show();
+};
+void Queue::Show()
+{
+	cout << "\n________________________________________\n";
+	for (int i = 0; i < QueueLength; i++)
+	{
+		cout << Wait[i] << " ";
+	}
+	cout << "\n________________________________________\n";
+}
+Queue::~Queue()
+{
+	delete[] Wait;
+}
+Queue::Queue(int m)
+{
+	MaxQueueLength = m;
+	Wait = new int[MaxQueueLength];
+	QueueLength = 0;
+}
+void Queue::Clear()
+{
+	QueueLength = 0;
+}
+bool Queue::isEmpty()
+{
+	return QueueLength == 0;
+}
+bool Queue::isFull()
+{
+	return QueueLength == MaxQueueLength;
+}
+int Queue::getCount()
+{
+	return QueueLength;
+}
+void Queue::Add(int c)
+{
+	if (!isFull())
+		Wait[QueueLength++] = c;
+}
+int Queue::Exract()
+{
+	if (!isEmpty())
+	{
+		int temp = Wait[0];
+		for (int i = 1; i < QueueLength; i++)
+		{
+			Wait[i - 1] = Wait[i];
+		}
+		QueueLength--;
+		return temp;
+	}
+	else
+	{
+		return -1;
+	}
+}
 
 int main()
 {
@@ -47,20 +121,32 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 
-	Stack ST;
-	char c;
-	while (!ST.isFull())// Пока не будет полон
+	Queue QU(25);
+	for (int i = 0; i < 5; i++)
 	{
-		c = 32 + rand() % 128;
-		cout << c << " ";
-		ST.Push(c);
+		QU.Add(rand() % 50);
 	}
-	cout << endl << endl;
-	while (c = ST.Pop())
-	{
-		cout << c << " ";
-	}
-	cout << endl;
+	QU.Show();
+	QU.Exract();
+	QU.Show();
+	cout << "Элементов в очереди " << QU.getCount() << endl;
+
+
+
+	//Stack ST;
+	//char c;
+	//while (!ST.isFull())// Пока не будет полон
+	//{
+	//	c = 32 + rand() % 128;
+	//	cout << c << " ";
+	//	ST.Push(c);
+	//}
+	//cout << endl << endl;
+	//while (c = ST.Pop())
+	//{
+	//	cout << c << " ";
+	//}
+	//cout << endl;
 	return 0;
 }
 Stack::Stack()
