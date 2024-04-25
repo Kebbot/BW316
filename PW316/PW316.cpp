@@ -2,8 +2,10 @@
 #include <Windows.h>
 #include <vector>
 #include <string>
+#include <stdlib.h>
 #include <time.h>
-#include "HeadClass.h"
+#include <stdio.h>
+#include "BinaryTree.h"
 using namespace std;
 
 class Stack
@@ -114,6 +116,59 @@ int Queue::Exract()
 	}
 }
 
+//Турнирная таблица
+Tree tournament;
+void Game(char Commands[][20], int N)
+{
+	int i, j;
+	int p1, p2; //Счет
+	//Каждая команда играет с каждой по 2 раза -
+	//дома и в гостях
+	int k;
+	Elem* temp;
+	for (k = 0; k < 2; k++)
+		for (i = 0; i < N - 1; i++)
+		{
+			for (j = i + 1; j < N; j++)
+			{
+				temp = new Elem;
+				if (k == 0)
+				{
+					//1 игра
+					strcpy_s(temp->Name, Commands[i]);
+					strcpy_s(temp->Opponent, Commands[j]);
+				}
+				else
+				{
+					//2 игра
+					strcpy_s(temp->Name, Commands[j]);
+					strcpy_s(temp->Opponent, Commands[i]);
+				}
+				p1 = rand() % 6;
+				p2 = rand() % 6;
+				if (p1 > p2)
+				{
+					temp->OwnerPoints = 3;
+					temp->OppPoints = 0;
+				}
+				else if (p1 == p2)
+				{
+					temp->OwnerPoints = 1;
+					temp->OppPoints = 1;
+				}
+				else
+				{
+					temp->OwnerPoints = 0;
+					temp->OppPoints = 3;
+				}
+				//Запись счета
+				sprintf_s(temp->Match, " %d : %d ", p1, p2);
+				//Добавление записи
+				tournament.Insert(temp);
+			}
+		}
+}
+
 int main()
 {
 	SetConsoleOutputCP(1251);
@@ -121,7 +176,20 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 
-	Queue QU(25);
+	const int N = 4;
+	char Commands[4][20] =
+	{
+	"Arsenal",
+	"Liverpool",
+	"Lids United",
+	"Manchester United"
+	};
+	//Игра
+	Game(Commands, N);
+	//Вывод результатов
+	tournament.Print(tournament.getRoot());
+
+	/*Queue QU(25);
 	for (int i = 0; i < 5; i++)
 	{
 		QU.Add(rand() % 50);
@@ -129,9 +197,7 @@ int main()
 	QU.Show();
 	QU.Exract();
 	QU.Show();
-	cout << "Элементов в очереди " << QU.getCount() << endl;
-
-
+	cout << "Элементов в очереди " << QU.getCount() << endl;*/
 
 	//Stack ST;
 	//char c;

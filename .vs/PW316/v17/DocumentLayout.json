@@ -5,6 +5,14 @@
     {
       "AbsoluteMoniker": "D:0:0:{0563464E-5A2F-49CA-9473-3B8A83CF26C5}|PW316\\PW316.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\PW316.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0563464E-5A2F-49CA-9473-3B8A83CF26C5}|PW316\\PW316.vcxproj|solutionrelative:PW316\\PW316.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0563464E-5A2F-49CA-9473-3B8A83CF26C5}|PW316\\PW316.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\BinaryTreeBody.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0563464E-5A2F-49CA-9473-3B8A83CF26C5}|PW316\\PW316.vcxproj|solutionrelative:PW316\\BinaryTreeBody.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0563464E-5A2F-49CA-9473-3B8A83CF26C5}|PW316\\PW316.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\BinaryTree.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0563464E-5A2F-49CA-9473-3B8A83CF26C5}|PW316\\PW316.vcxproj|solutionrelative:PW316\\BinaryTree.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,8 +22,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BinaryTreeBody.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\BinaryTreeBody.cpp",
+              "RelativeDocumentMoniker": "PW316\\BinaryTreeBody.cpp",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\BinaryTreeBody.cpp",
+              "RelativeToolTip": "PW316\\BinaryTreeBody.cpp",
+              "ViewState": "AQIAAJYAAAAAAAAAAADgv6EAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-04-25T17:11:38.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BinaryTree.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\BinaryTree.h",
+              "RelativeDocumentMoniker": "PW316\\BinaryTree.h",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\BinaryTree.h",
+              "RelativeToolTip": "PW316\\BinaryTree.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-04-25T16:42:42.215Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -24,7 +58,7 @@
               "RelativeDocumentMoniker": "PW316\\PW316.cpp",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\BW316\\PW316\\PW316.cpp",
               "RelativeToolTip": "PW316\\PW316.cpp",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAACkAAAAAAAAA",
+              "ViewState": "AQIAAJsAAAAAAAAAAAAAAJwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-28T15:50:33.825Z",
               "EditorCaption": ""
