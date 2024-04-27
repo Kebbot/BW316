@@ -22,9 +22,11 @@ void Tree::Print(Elem* Node)
 	if (Node != 0)
 	{
 		Print(Node->left);
-		cout << Node->Name
+		cout << Node->OwnerPoints << ' '
+			<< Node->Name
 			<< Node->Match
-			<< Node->Opponent
+			<< Node->Opponent 
+			<< ' ' << Node->OppPoints
 			<< endl;
 		Print(Node->right);
 	}

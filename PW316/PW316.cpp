@@ -126,20 +126,25 @@ void Game(char Commands[][20], int N)
 	//дома и в гостях
 	int k;
 	Elem* temp;
-	for (k = 0; k < 2; k++)
-		for (i = 0; i < N - 1; i++)
+	for (k = 0; k < 2; k++)// количество игр
+	{
+		for (i = 0; i < N - 1; i++)//количество соперников (не считая "Себя")
 		{
-			for (j = i + 1; j < N; j++)
+			for (j = i + 1; j < N; j++) //нынешний аппонент
 			{
 				temp = new Elem;
 				if (k == 0)
 				{
+					cout << "1 игра" << endl;
+					cout << "k = " << k << ' ' << "i = " << i << ' ' << "j = " << j << endl;
 					//1 игра
 					strcpy_s(temp->Name, Commands[i]);
 					strcpy_s(temp->Opponent, Commands[j]);
 				}
 				else
 				{
+					cout << "2 игра" << endl;
+					cout <<"k = " << k << ' ' << "j = " << j <<' ' << "i = " << i << endl;
 					//2 игра
 					strcpy_s(temp->Name, Commands[j]);
 					strcpy_s(temp->Opponent, Commands[i]);
@@ -167,6 +172,7 @@ void Game(char Commands[][20], int N)
 				tournament.Insert(temp);
 			}
 		}
+	}
 }
 
 int main()
@@ -179,10 +185,10 @@ int main()
 	const int N = 4;
 	char Commands[4][20] =
 	{
-	"Arsenal",
-	"Liverpool",
-	"Lids United",
-	"Manchester United"
+		"Manchester United",
+		"Liverpool",
+		"Arsenal",
+		"Lids United"
 	};
 	//Игра
 	Game(Commands, N);
