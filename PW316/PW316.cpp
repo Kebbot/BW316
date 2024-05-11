@@ -159,7 +159,6 @@ public:
 		cout << "Count human: " << Human_live << endl;
 		cout << "Count rooms: " << num_rooms << endl;
 	}
-
 };
 
 class Home : public Flat
