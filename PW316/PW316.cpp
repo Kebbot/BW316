@@ -2,178 +2,180 @@
 #include <Windows.h>
 #include <vector>
 #include <string>
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
+#include <io.h>
+#include <sys/locking.h>
 #include "BinaryTree.h"
 using namespace std;
-
-class Stack
+/*// Глобальный класс (А)
+class A
 {
-	//Нижнаяя и верхняя граница стека
-	enum{EMPTY = -1, FULL = 20};
-
-	//Массив для храниния данных
-	char st[FULL + 1];
-
-	//Указатель на вершину стека
-	int top;
 public:
-	//Конструктор
-	Stack();
-
-	//Добавление элемента
-	void Push(char c);
-
-	//Извлечение элемента
-	char Pop();
-
-	//Очистка стека
-	void Clear();
-
-	//Проверка существования элементов
-	bool isEmpty();
-
-	//Проверка переполнения стека
-	bool isFull();
-
-	//Кол-во элементов в стеке
-	int getCount();
-};
-
-class Queue
-{
-	//Очередь
-	int* Wait;
-	int MaxQueueLength; //максимальный размер
-	int QueueLength; //текущий размер очереди
-public:
-	Queue(int m);
-	~Queue();
-	void Add(int c);
-	void Clear();
-	int Exract();
-	bool isEmpty();
-	bool isFull();
-	int getCount();
-	void Show();
-};
-void Queue::Show()
-{
-	cout << "\n________________________________________\n";
-	for (int i = 0; i < QueueLength; i++)
+	int init(int);
+private:
+	class B
 	{
-		cout << Wait[i] << " ";
+	public:
+		//friend class A; //объявление друга
+		B(int val = 0); //Конструктор
+		void mf( A&);
+		int value;
+		static int static_mem;
+	};
+	//class Ref {
+	//	B* pli; //pli - имеет тип A::B*
+	//};
+	//class B {
+	//	Ref* pRef; // pRef - имеет тип A::Ref*
+	//};
+	//B num; 
+	// //Компилятор пока не видит определения 
+	// вложенного класса и не может создать объект
+	//поэтому можно создавать только ссылки и указатели
+};
+
+void A::B::mf( A& i1)
+{
+	int memb = i1.init(5);
+}
+A::B::B(int val = 0)
+{
+	//A::init() - ошибка нестатическое поле класса А должно использоваться через
+	//объект или указатель на тип А
+	value = val;
+}
+
+int A::B::static_mem = 1024;
+
+class B
+{
+public:
+	//Вложенный класс А, Он инкапсулирован внутри области видимости класса В
+	class A {};
+
+	A* obj; //Тут используется вложенный класс А
+};*/
+
+/*//класс "точка"
+class Point {
+	//кооординаты
+	int X;
+	int Y;
+public:
+	//конструктор
+	Point() {
+		X = Y = 0;
 	}
-	cout << "\n________________________________________\n";
-}
-Queue::~Queue()
-{
-	delete[] Wait;
-}
-Queue::Queue(int m)
-{
-	MaxQueueLength = m;
-	Wait = new int[MaxQueueLength];
-	QueueLength = 0;
-}
-void Queue::Clear()
-{
-	QueueLength = 0;
-}
-bool Queue::isEmpty()
-{
-	return QueueLength == 0;
-}
-bool Queue::isFull()
-{
-	return QueueLength == MaxQueueLength;
-}
-int Queue::getCount()
-{
-	return QueueLength;
-}
-void Queue::Add(int c)
-{
-	if (!isFull())
-		Wait[QueueLength++] = c;
-}
-int Queue::Exract()
-{
-	if (!isEmpty())
-	{
-		int temp = Wait[0];
-		for (int i = 1; i < QueueLength; i++)
-		{
-			Wait[i - 1] = Wait[i];
+	//установка координат
+	void SetPoint(int iX, int iY) {
+		X = iX;
+		Y = iY;
+	}
+	//демонстрация координат
+	void Show() {
+		cout << "----------------------------\n\n";
+		cout << X << "\t" << Y << "\n\n";
+		cout << "----------------------------\n\n";
+	}
+};
+//класс фигура
+class Figura {
+	//агрегация точки
+	//(координаты углов)
+	Point* obj;
+	//количество углов
+	int count;
+	//цвет фигуры
+	int color;
+public:
+	//конструктор
+	Figura() {
+		count = color = 0;
+		obj = NULL;
+	}
+	//создание фигуры
+	void CreateFigura(int cr, int ct) {
+		//если углов меньше трех — это не фигура
+		if (ct < 3) exit(0);
+		//инициализация цвета и количества углов
+		count = ct;
+		color = cr;
+		//выдделение памяти под массив точек
+		obj = new Point[count];
+		if (!obj) exit(0);
+		//установка координат точек
+		int tempX, tempY;
+		for (int i = 0; i < count; i++) {
+			cout << "Set X\n";
+			cin >> tempX;
+			cout << "Set Y\n";
+			cin >> tempY;
+			obj[i].SetPoint(tempX, tempY);
 		}
-		QueueLength--;
-		return temp;
 	}
-	else
-	{
-		return -1;
-	}
-}
-
-//Турнирная таблица
-Tree tournament;
-void Game(char Commands[][20], int N)
-{
-	int i, j;
-	int p1, p2; //Счет
-	//Каждая команда играет с каждой по 2 раза -
-	//дома и в гостях
-	int k;
-	Elem* temp;
-	for (k = 0; k < 2; k++)// количество игр
-	{
-		for (i = 0; i < N - 1; i++)//количество соперников (не считая "Себя")
-		{
-			for (j = i + 1; j < N; j++) //нынешний аппонент
-			{
-				temp = new Elem;
-				if (k == 0)
-				{
-					cout << "1 игра" << endl;
-					cout << "k = " << k << ' ' << "i = " << i << ' ' << "j = " << j << endl;
-					//1 игра
-					strcpy_s(temp->Name, Commands[i]);
-					strcpy_s(temp->Opponent, Commands[j]);
-				}
-				else
-				{
-					cout << "2 игра" << endl;
-					cout <<"k = " << k << ' ' << "j = " << j <<' ' << "i = " << i << endl;
-					//2 игра
-					strcpy_s(temp->Name, Commands[j]);
-					strcpy_s(temp->Opponent, Commands[i]);
-				}
-				p1 = rand() % 6;
-				p2 = rand() % 6;
-				if (p1 > p2)
-				{
-					temp->OwnerPoints = 3;
-					temp->OppPoints = 0;
-				}
-				else if (p1 == p2)
-				{
-					temp->OwnerPoints = 1;
-					temp->OppPoints = 1;
-				}
-				else
-				{
-					temp->OwnerPoints = 0;
-					temp->OppPoints = 3;
-				}
-				//Запись счета
-				sprintf_s(temp->Match, " %d : %d ", p1, p2);
-				//Добавление записи
-				tournament.Insert(temp);
+	//показ фигуры
+	void ShowFigura() {
+		cout << "----------------------------\n\n";
+		cout << "Color" << color << "\n\nPoints — "<<count<<"\n\n";
+			for (int i = 0; i < count; i++) {
+				obj[i].Show();
 			}
-		}
 	}
-}
+	//если фигура была очистить память
+	~Figura() {
+		if (obj != NULL) delete[]obj;
+	}
+};*/
+
+/*
+* class имя_класса : спецификатор_наследования имя_базового_класса
+* { описание_класса }
+*/
+
+class Flat
+{
+	int numer_Flat; //номер квартиры 
+	int Human_live; // количесво жильцов
+	int num_rooms; //кол-во комнат
+public:
+	Flat()
+	{
+		numer_Flat = 0;
+		Human_live = 0;
+		num_rooms = 0;
+	}
+	Flat(int Inumer_Flat, int IHuman_live, int Inum_rooms)
+	{
+		numer_Flat = Inumer_Flat;
+		Human_live = IHuman_live;
+		num_rooms = Inum_rooms;
+	}
+	void display()
+	{
+		cout << "Nuber Flatt: " << numer_Flat << endl;
+		cout << "Count human: " << Human_live << endl;
+		cout << "Count rooms: " << num_rooms << endl;
+	}
+
+};
+
+class Home : public Flat
+{
+	string name_street; // улица
+public:
+	Home(int Inumer_Flat, int IHuman_live, int Inum_rooms, string Iname_street) : Flat(Inumer_Flat, IHuman_live, Inum_rooms)
+	{
+		name_street = Iname_street;
+	}
+	void Print()
+	{
+		cout << "Street Home: " << name_street << endl;
+		display();
+	}
+};
 
 int main()
 {
@@ -182,83 +184,18 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 
-	const int N = 4;
-	char Commands[4][20] =
-	{
-		"Manchester United",
-		"Liverpool",
-		"Arsenal",
-		"Lids United"
-	};
-	//Игра
-	Game(Commands, N);
-	//Вывод результатов
-	tournament.Print(tournament.getRoot());
+	Home h(55, 3, 3, "ul.Pushkina d.5");
+	h.Print();
+	Home p(57, 1, 4, "ul.Lenina d.103");
+	p.Print();
 
-	/*Queue QU(25);
-	for (int i = 0; i < 5; i++)
-	{
-		QU.Add(rand() % 50);
-	}
-	QU.Show();
-	QU.Exract();
-	QU.Show();
-	cout << "Элементов в очереди " << QU.getCount() << endl;*/
+	/*Figura f;
+	f.CreateFigura(255, 3);
+	f.ShowFigura();*/
 
-	//Stack ST;
-	//char c;
-	//while (!ST.isFull())// Пока не будет полон
-	//{
-	//	c = 32 + rand() % 128;
-	//	cout << c << " ";
-	//	ST.Push(c);
-	//}
-	//cout << endl << endl;
-	//while (c = ST.Pop())
-	//{
-	//	cout << c << " ";
-	//}
-	//cout << endl;
+	/*// Вложенный класс А не видим в данной области видимости
+	//Тут у нас используется глобальный класс А
+	A* obj2;*/
+
 	return 0;
-}
-Stack::Stack()
-{
-	//изначально стек пустой
-	top = EMPTY;
-}
-void Stack::Clear()
-{
-	//данные в массиве все ещё будут, но методы класса будут их игнорить
-	top = EMPTY;
-}
-bool Stack::isEmpty()
-{
-	//Пусто?
-	return top == EMPTY;
-}
-bool Stack::isFull()
-{
-	//Полный??
-	return top == FULL;
-}
-int Stack::getCount()
-{
-	//кол-во имеющихся в стеке элементов
-	return top + 1;
-}
-void Stack::Push(char c)
-{
-	/*Если в стеке есть место, то увеличиваем указатель на вершину
-	стека и вставляем новый элемент*/
-	if (!isFull())
-		st[++top] = c;
-}
-char Stack::Pop()
-{
-	/*если в стеке есть элементы, то возвращаем верхний элемент и 
-	и уменьшаем указатель на вершину стека*/
-	if (!isEmpty())
-		return st[top--];
-	else //Если в стеке нет элементов
-		return 0;
 }
