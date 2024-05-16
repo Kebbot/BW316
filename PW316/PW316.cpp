@@ -165,7 +165,10 @@ class Home : public Flat
 {
 	string name_street; // улица
 public:
-	Home(int Inumer_Flat, int IHuman_live, int Inum_rooms, string Iname_street) : Flat(Inumer_Flat, IHuman_live, Inum_rooms)
+	Home(int Inumer_Flat, 
+		int IHuman_live, 
+		int Inum_rooms, 
+		string Iname_street) : Flat(Inumer_Flat, IHuman_live, Inum_rooms)
 	{
 		name_street = Iname_street;
 	}
@@ -176,6 +179,81 @@ public:
 	}
 };
 
+class Roga
+{
+protected:
+	char color[30];
+	int ves;
+public:
+	Roga()
+	{
+		strcpy_s(color, "Brown");
+		ves = 10;
+	}
+	Roga(const char* c, int v)
+	{
+		strcpy_s(color, c);
+		ves = v;
+	}
+};
+
+class Kopyta
+{
+protected:
+	char forma[30];
+	int razmer;
+public:
+	Kopyta()
+	{
+		strcpy_s(forma, "Big");
+		razmer = 10;
+	}
+	Kopyta(const char* f, int r)
+	{
+		strcpy_s(forma, f);
+		razmer = r;
+	}
+};
+
+class Los : public Roga, public Kopyta
+{
+	char name[250];
+public:
+	Los(const char* n, const char* c, int v, const char* f, int r) :
+		Kopyta( f, r), Roga( c, v)
+	{
+		strcpy_s(name, n);
+	}
+	void Print()
+	{
+		cout << "Name: " << name << endl;
+		cout << "Forma: " << forma << endl;
+		cout << "Color: " << color << endl;
+		cout << "Ves Rogov: " << ves << endl;
+		cout << "Razmer kopyt: " << razmer << endl;
+		
+	}
+};
+
+class Buf : public Roga, public Kopyta
+{
+	char name[250];
+public:
+	Buf(const char* n, const char* c, int v, const char* f, int r) :
+		Kopyta(f, r), Roga(c, v)
+	{
+		strcpy_s(name, n);
+	}
+	void Print()
+	{
+		cout << "Name: " << name << endl;
+		cout << "Forma: " << forma << endl;
+		cout << "Color: " << color << endl;
+		cout << "Ves Rogov: " << ves << endl;
+		cout << "Razmer kopyt: " << razmer << endl;
+	}
+};
+
 int main()
 {
 	SetConsoleOutputCP(1251);
@@ -183,10 +261,12 @@ int main()
 	setlocale(LC_ALL, "Rus");
 	srand(time(NULL));
 
-	Home h(55, 3, 3, "ul.Pushkina d.5");
-	h.Print();
-	Home p(57, 1, 4, "ul.Lenina d.103");
-	p.Print();
+	Los los("Osas", "Purple", 20, "Krug", 15);
+	los.Print();
+	cout << endl << "_____________________" << endl;
+	Buf buf("Pen", "Orange", 40, "Dual", 30);
+	buf.Print();
+	
 
 	/*Figura f;
 	f.CreateFigura(255, 3);
