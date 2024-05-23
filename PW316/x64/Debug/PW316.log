@@ -1,3 +1,8 @@
-﻿  PW316.cpp
-C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(49,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+﻿  BinaryTreeBody.cpp
+  BodyClass.cpp
+C:\Users\Admin\Documents\GitHub\BW316\PW316\BodyClass.cpp(54,17): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  PW316.cpp
+C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(18,1): warning C4326: возвращаемый тип "main" должен быть "int", а не "void"
+C:\Users\Admin\Documents\GitHub\BW316\PW316\PW316.cpp(22,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Создание кода...
   PW316.vcxproj -> C:\Users\Admin\Documents\GitHub\BW316\x64\Debug\PW316.exe
