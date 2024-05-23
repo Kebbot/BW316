@@ -1,0 +1,4 @@
+Hello student
+Привет студенты
+Welcome to C++ OOP
+Добро пожаловать в C++ ООП
